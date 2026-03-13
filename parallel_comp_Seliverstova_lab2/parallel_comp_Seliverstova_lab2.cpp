@@ -154,12 +154,12 @@ void taskWithCAS(int start, int end, const vector<int> &data, atomic<long long> 
     long long currentDif = atomicDif.load(memory_order_relaxed);
     long long newDif = currentDif + localDif;
 
-    while (atomicDif.compare_exchange_weak(currentDif, newDif, memory_order_relaxed)) {
+    while (!atomicDif.compare_exchange_weak(currentDif, newDif, memory_order_relaxed)) {
         newDif = currentDif + localDif;
     }
  
     int currentMax = atomicMax.load(memory_order_relaxed);
-    while (localMax > currentMax && atomicMax.compare_exchange_weak(currentMax, localMax, memory_order_relaxed)) {
+    while (localMax > currentMax && !atomicMax.compare_exchange_weak(currentMax, localMax, memory_order_relaxed)) {
     }
 }
  
