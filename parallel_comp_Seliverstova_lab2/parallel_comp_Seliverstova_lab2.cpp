@@ -43,6 +43,7 @@ int main() {
         for (int numThreads: threadCounts) {
             long long dif = 0;
             int maxVal = INT32_MIN;
+
             auto start = high_resolution_clock::now();
             parallelTaskWithMutex(data, dif, maxVal, numThreads);
             auto end = high_resolution_clock::now();
@@ -54,6 +55,7 @@ int main() {
         for (int numThreads: threadCounts) {
             long long dif = 0;
             int maxVal = INT32_MIN;
+
             auto start = high_resolution_clock::now();
             parallelTaskWithCAS(data, dif, maxVal, numThreads);
             auto end = high_resolution_clock::now();
